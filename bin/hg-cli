@@ -1,3 +1,7 @@
 #! /usr/bin/env node
 
+require('../lib/file').mkdir(
+    require('../lib/util').getRootDirectory()
+);
+
 require('../lib/cli').parse(process.argv);

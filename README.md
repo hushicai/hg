@@ -1,6 +1,6 @@
 # hg
 
-my generators
+my generator
 
 quickly install packageName into specific directory(`cwd` default).
 
@@ -15,6 +15,5 @@ npm install -g hg
 ```bash
 hg packageName   # install package from `~/.hg`
 hg hushicai@packageName   # install package from github
-hg https://xxxx.com/xx/xxxx # install package from url
-
+hg http://gitlab.baidu.com/vsmed-fe/xxx.git # install package from a specific git url
 ```

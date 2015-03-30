@@ -12,8 +12,18 @@ npm install -g hg
 
 ## usage
 
+### install package
+
 ```bash
-hg packageName   # install package from `~/.hg`
-hg hushicai@packageName   # install package from github
-hg git@github.com:hushicai/test.git # install package from a specific git url
+hg install packageName   # install package from `~/.hg`
+hg install hushicai@packageName   # install package from github
+hg install git@github.com:hushicai/test.git # install package from a specific git url
+```
+
+### scaffold
+
+```bash
+mkdir hg-test
+cd hg-test
+hg init # generate a hg package
 ```

@@ -11,13 +11,11 @@ InstallCommand.prototype.run = function (argv) {
     var name = argv[0];
 
     if (!name) {
-        console.log('usage: hg install packageName');
-        return;
+        return this.help();
     }
 
     var util = require('../lib/util');
 
-    // TODO: 在命令行中指定目标目录
     var pkg = util.resolvePkgName(name);
 
     if (util.isInstalled(pkg)) {
@@ -31,6 +29,16 @@ InstallCommand.prototype.run = function (argv) {
     else {
         console.log('Unable to find package %s', name);
     }
+};
+
+InstallCommand.prototype.help = function () {
+    console.log('\n  Usage: hg install [options] [pkg]');
+    console.log('\n  Options:\n');
+    console.log('\t-d\tspecific a directory.');
+};
+
+InstallCommand.prototype.desc = function () {
+    return 'install a package';
 };
 
 module.exports = InstallCommand;

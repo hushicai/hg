@@ -8,6 +8,6 @@ Command.prototype.run = function (argv) {};
 
 Command.prototype.help = function () {};
 
-Command.prototype.desc = function () {};
+Command.prototype.description = function () {};
 
 module.exports = Command;

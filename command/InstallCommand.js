@@ -50,7 +50,7 @@ InstallCommand.prototype.help = function () {
     console.log('\thg install --dir=dir test');
 };
 
-InstallCommand.prototype.desc = function () {
+InstallCommand.prototype.description = function () {
     return 'install a package';
 };
 

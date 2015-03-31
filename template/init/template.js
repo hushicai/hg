@@ -1,4 +1,0 @@
-exports.filesToCopy = function () {
-    return [
-    ];
-};

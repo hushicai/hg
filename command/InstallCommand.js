@@ -15,8 +15,8 @@ InstallCommand.prototype.run = function (argv) {
 
     var dest;
 
-    if (argv.d) {
-        dest = path.resolve(process.cwd(), argv.d);
+    if (argv.dir) {
+        dest = path.resolve(process.cwd(), argv.dir);
     }
 
     var name = argv._[0];
@@ -45,9 +45,9 @@ InstallCommand.prototype.run = function (argv) {
 InstallCommand.prototype.help = function () {
     console.log('\n  Usage: hg install [options] [pkg]');
     console.log('\n  Options:\n');
-    console.log('\t-d\tspecific a directory.');
+    console.log('\t-dir\tspecific a directory.');
     console.log('\n  Examples:\n');
-    console.log('\thg install --d=dir test');
+    console.log('\thg install --dir=dir test');
 };
 
 InstallCommand.prototype.desc = function () {

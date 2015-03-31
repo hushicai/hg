@@ -8,7 +8,18 @@ function InstallCommand() {
 require('util').inherits(InstallCommand, Command);
 
 InstallCommand.prototype.run = function (argv) {
-    var name = argv[0];
+    var minimist = require('minimist');
+    var path = require('path');
+
+    argv = minimist(argv);
+
+    var dest;
+
+    if (argv.d) {
+        dest = path.resolve(process.cwd(), argv.d);
+    }
+
+    var name = argv._[0];
 
     if (!name) {
         return this.help();
@@ -19,11 +30,11 @@ InstallCommand.prototype.run = function (argv) {
     var pkg = util.resolvePkgName(name);
 
     if (util.isInstalled(pkg)) {
-        util.generate(pkg);
+        util.generate(pkg, dest);
     }
     else if (util.isRepo(name)) {
         util.cloneRepo(name).then(function () {
-            util.generate(pkg);
+            util.generate(pkg, dest);
         });
     }
     else {
@@ -35,6 +46,8 @@ InstallCommand.prototype.help = function () {
     console.log('\n  Usage: hg install [options] [pkg]');
     console.log('\n  Options:\n');
     console.log('\t-d\tspecific a directory.');
+    console.log('\n  Examples:\n');
+    console.log('\thg install --d=dir test');
 };
 
 InstallCommand.prototype.desc = function () {

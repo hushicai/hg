@@ -7,7 +7,7 @@ quickly install packageName into a specific directory(`cwd` default).
 ## install
 
 ```bash
-npm install -g hg
+npm install -g hushicai@hg
 ```
 
 ## usage

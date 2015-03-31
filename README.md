@@ -2,7 +2,7 @@
 
 my generator
 
-quickly install packageName into specific directory(`cwd` default).
+quickly install packageName into a specific directory(`cwd` default).
 
 ## install
 

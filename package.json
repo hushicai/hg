@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/hushicai/hg",
   "dependencies": {
-    "q": "^1.2.0"
+    "q": "^1.2.0",
+    "rimraf": "^2.3.2"
   }
 }

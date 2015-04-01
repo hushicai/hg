@@ -16,7 +16,7 @@ InitCommand.prototype.run = function (argv) {
         output: process.stdout
     });
 
-    rl.question('Are you sure to init a hg package here?(y/n): ', function (answer) {
+    rl.question('Sure to init a hg package here?(y/n): ', function (answer) {
         answer = answer.toLowerCase();
         if (answer === 'y' || answer === 'yes') {
             doInit();

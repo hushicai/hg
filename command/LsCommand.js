@@ -8,7 +8,7 @@ require('util').inherits(LsCommand, Command);
 
 LsCommand.prototype.name = 'ls';
 
-LsCommand.prototype.run = function () {
+LsCommand.prototype.run = function (argv) {
     var util = require('../lib/util');
 
     var root = util.getRootDirectory();

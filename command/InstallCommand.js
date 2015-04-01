@@ -10,11 +10,7 @@ require('util').inherits(InstallCommand, Command);
 InstallCommand.prototype.name = 'install';
 
 InstallCommand.prototype.run = function (argv) {
-    var minimist = require('minimist');
     var path = require('path');
-
-    argv = minimist(argv);
-
     var dest;
 
     if (argv.dir) {

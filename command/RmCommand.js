@@ -9,7 +9,7 @@ require('util').inherits(RmCommand, Command);
 RmCommand.prototype.name = 'rm';
 
 RmCommand.prototype.run = function (argv) {
-    var pkg = argv[0];
+    var pkg = argv._.shift();
 
     if (!pkg) {
         console.log('usage: hg rm packageName');

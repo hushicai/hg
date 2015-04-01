@@ -50,7 +50,9 @@ InstallCommand.prototype.helpInformation = function () {
         '  Options:',
         '    -dir    specific a directory to install',
         '  Examples:',
-        '    hg install --dir dir pkg'
+        '    hg install --dir dir <packageName>',
+        '    hg install <author@repo>',
+        '    hg install <git remote url>'
     ];
 
     return msg.join('\n');

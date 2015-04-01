@@ -29,11 +29,10 @@ InitCommand.prototype.run = function (argv) {
         var path = require('path');
         var file = require('../lib/file');
 
-        var dir = path.resolve(__dirname, '../template/init');
+        var srcFile = path.resolve(__dirname, '../template/init/hg.json');
+        var destFile = path.join(dest, 'hg.json')
 
-        fs.readdirSync(dir).forEach(function (filepath) {
-            file.copy(path.join(dir, filepath), path.join(dest, filepath));
-        });
+        file.copy(srcFile, destFile);
     }
 };
 

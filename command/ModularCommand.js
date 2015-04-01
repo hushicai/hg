@@ -6,6 +6,8 @@
 
  require('util').inherits(ModularCommand, Command);
 
+ ModularCommand.prototype.name = 'modular';
+
  ModularCommand.prototype.run = function (argv) {
     var filepath = argv._[0];
 

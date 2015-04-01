@@ -7,6 +7,8 @@ function InstallCommand() {
 // 这个继承有点冷。。。
 require('util').inherits(InstallCommand, Command);
 
+InstallCommand.prototype.name = 'install';
+
 InstallCommand.prototype.run = function (argv) {
     var minimist = require('minimist');
     var path = require('path');
@@ -42,12 +44,16 @@ InstallCommand.prototype.run = function (argv) {
     }
 };
 
-InstallCommand.prototype.help = function () {
-    console.log('\n  Usage: hg install [options] [pkg]');
-    console.log('\n  Options:\n');
-    console.log('\t-dir\tspecific a directory.');
-    console.log('\n  Examples:\n');
-    console.log('\thg install --dir=dir test');
+InstallCommand.prototype.helpInformation = function () {
+    var msg = [
+        '  Usage: hg install [options] [pkg]',
+        '  Options:',
+        '    -dir    specific a directory to install',
+        '  Examples:',
+        '    hg install --dir dir pkg'
+    ];
+
+    return msg.join('\n');
 };
 
 InstallCommand.prototype.description = function () {

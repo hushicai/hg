@@ -6,6 +6,8 @@ function RmCommand() {
 
 require('util').inherits(RmCommand, Command);
 
+RmCommand.prototype.name = 'rm';
+
 RmCommand.prototype.run = function (argv) {
     var pkg = argv[0];
 
@@ -17,6 +19,10 @@ RmCommand.prototype.run = function (argv) {
     var dir = require('../lib/util').getPkgDirectory(pkg);
 
     require('../lib/file').delete(dir);
+};
+
+RmCommand.prototype.description = function () {
+    return 'remove a installed package';
 };
 
 module.exports = RmCommand;

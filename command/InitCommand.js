@@ -6,6 +6,8 @@ function InitCommand() {
 
 require('util').inherits(InitCommand, Command);
 
+InitCommand.prototype.name = 'init';
+
 InitCommand.prototype.run = function (argv) {
     var dest = process.cwd();
 
@@ -18,6 +20,10 @@ InitCommand.prototype.run = function (argv) {
     fs.readdirSync(dir).forEach(function (filepath) {
         file.copy(path.join(dir, filepath), path.join(dest, filepath));
     });
+};
+
+InitCommand.prototype.description = function () {
+    return 'init a hg generator';
 };
 
 module.exports = InitCommand;

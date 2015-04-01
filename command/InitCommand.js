@@ -23,7 +23,7 @@ InitCommand.prototype.run = function (argv) {
 };
 
 InitCommand.prototype.description = function () {
-    return 'init a hg generator';
+    return 'init a hg package';
 };
 
 module.exports = InitCommand;

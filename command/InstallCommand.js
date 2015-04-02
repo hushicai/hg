@@ -28,11 +28,11 @@ InstallCommand.prototype.run = function (argv) {
     var pkg = util.resolvePkgName(name);
 
     if (util.isInstalled(pkg)) {
-        util.generate(pkg, dest);
+        util.install(pkg, dest);
     }
     else if (util.isRepo(name)) {
         util.cloneRepo(name).then(function () {
-            util.generate(pkg, dest);
+            util.install(pkg, dest);
         });
     }
     else {

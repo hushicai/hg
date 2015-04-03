@@ -3,7 +3,7 @@
         return {};
     }
 
-    if (typeof === 'define' && define.amd) {
+    if (typeof define === 'function' && define.amd) {
         define(factory);
     }
     else if (typeof module === 'object' && module.exports) {

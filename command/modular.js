@@ -1,14 +1,15 @@
- var Command = require('./Command');
+/**
+ * @file modular
+ * @author hushicai(bluthcy@gmail.com)
+ */
 
- function ModularCommand() {
-    Command.apply(this, arguments);
- }
+/* eslint-env node  */
 
- require('util').inherits(ModularCommand, Command);
+var util = require('../lib/util');
 
- ModularCommand.prototype.name = 'modular';
+exports.name = 'modular';
 
- ModularCommand.prototype.run = function (argv) {
+exports.process = function (argv) {
     var filepath = argv._[0];
 
     if (!filepath) {
@@ -27,24 +28,21 @@
     var fs = require('fs');
 
     if (argv.f || argv.force || !fs.existsSync(destFile)) {
-        file.copyFile(srcFile,destFile, {force: true});
-    } else {
+        file.copyFile(srcFile, destFile, {force: true});
+    }
+    else {
         console.log('file "%s" exists', destFile);
     }
- };
+};
 
- ModularCommand.prototype.helpInformation = function () {
+exports.help = function () {
     var msg = [
         '  Usage: hg modular [options] [file]',
         '  Options:',
         '    -f,--force    forcely generate a file'
     ];
 
-    return msg.join('\n');
- };
+    return util.outputHelp(msg);
+};
 
- ModularCommand.prototype.description = function () {
-    return 'generate a modular js file';
- };
-
- module.exports = ModularCommand;
+exports.description = 'generate a modular js file';

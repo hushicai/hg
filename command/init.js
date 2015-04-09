@@ -1,14 +1,22 @@
-var Command = require('./Command');
+/**
+ * @file init
+ * @author hushicai(bluthcy@gmail.com)
+ */
 
-function InitCommand() {
-    Command.apply(this, arguments);
-}
+var util = require('../lib/util');
 
-require('util').inherits(InitCommand, Command);
+exports.help = function () {
+    var msg = [
+        '  Usage: hg init'
+    ];
+    util.outputHelp(msg);
+};
 
-InitCommand.prototype.name = 'init';
+exports.name = 'init';
 
-InitCommand.prototype.run = function (argv) {
+exports.description = 'init a hg package';
+
+exports.process = function (argv) {
     var dest = process.cwd();
 
     var rl = require('readline').createInterface({
@@ -35,9 +43,3 @@ InitCommand.prototype.run = function (argv) {
         file.copy(srcFile, destFile);
     }
 };
-
-InitCommand.prototype.description = function () {
-    return 'init a hg package';
-};
-
-module.exports = InitCommand;

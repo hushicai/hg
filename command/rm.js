@@ -10,31 +10,23 @@ var util = require('../lib/util');
 exports.name = 'rm';
 
 exports.process = function (argv) {
-    var pkg = util.resolvePkgName(argv._[0]);
-    var Q = require('q');
-
-    function reject() {
-        throw new Error('fail');
-    }
-
-    function resolve() {
-        return true;
-    }
+    var pkg = argv._[0];
+    var q = require('../lib/q');
 
     if (!pkg) {
         console.log('  Usage: hg rm [pkg]');
-        return Q.fcall(reject);
+        return q.rejected();
     }
 
     var dir = util.getPkgDirectory(pkg);
 
     if (fs.existsSync(dir)) {
-        require('../lib/file').delete(dir);
-        return Q.fcall(resolve);
+        util.removePkgDirectory(dir);
+        return q.resolved();
     }
 
-    console.log('package "%s" does not exist', pkg);
-    return Q.fcall(reject);
+    console.log('Pkg "%s" does not exist', pkg);
+    return q.rejected();
 };
 
 exports.description = 'remove a installed package';

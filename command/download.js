@@ -10,21 +10,20 @@ exports.name = 'download';
 exports.description = 'download a remote package';
 
 exports.help = function () {
-    util.outputHelp('  Usage: hg download <author@pkg> | <git remote url>');
+    var msg = [
+        '  Usage: hg download <remote-pkg>'
+    ];
+    util.outputHelp(msg);
 };
 
 exports.process = function (argv) {
-    var Q = require('q');
-
-    function reject() {
-        throw new Error('fail');
-    }
+    var q = require('../lib/q');
 
     var name = argv._[0];
 
     if (!name) {
         this.help();
-        return Q.fcall(reject);
+        return q.rejected();
     }
 
     if (util.isRemotePkg(name)) {
@@ -32,6 +31,5 @@ exports.process = function (argv) {
     }
 
     console.log('`%s` is not a remote pkg.', name);
-
-    return Q.fcall(reject);
+    return q.rejected();
 };

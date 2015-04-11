@@ -28,7 +28,7 @@ exports.process = function (argv) {
     var fs = require('fs');
 
     if (argv.f || argv.force || !fs.existsSync(destFile)) {
-        file.copyFile(srcFile, destFile, {force: true});
+        file.copyFile(srcFile, destFile);
     }
     else {
         console.log('file "%s" exists', destFile);

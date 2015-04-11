@@ -8,29 +8,28 @@ var util = require('../lib/util');
 exports.name = 'update';
 
 exports.process = function (argv) {
-    var name = argv._[0];
-    var Q = require('q');
+    var pkg = argv._[0];
+    var q = require('../lib/q');
 
-    function reject() {
-        throw new Error('fail');
-    }
-
-    if (!name) {
+    if (!pkg) {
         this.help();
-        return Q.fcall(reject);
+        return q.rejected();
     }
 
-    var rm = require('./rm');
-    var install = require('./install');
+    if (util.isInstalled(pkg)) {
+        var command = 'git pull origin master';
+        var pkgDirectory = util.getPkgDirectory(pkg);
+        return util.execCommand(command, pkgDirectory);
+    }
 
-    return rm.process(argv).then(function () {
-        return install.process(argv);
-    });
+    console.log('Pkg `%s` not installed.', pkg);
+
+    return q.rejected();
 };
 
 exports.help = function () {
     var msg = [
-        '  Usage: hg update [pkg]'
+        '  Usage: hg update <remote-pkg>'
     ];
     return util.outputHelp(msg);
 };

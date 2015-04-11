@@ -13,7 +13,8 @@ exports.help = function () {
     var msg = [
         '  Usage: hg install [options] [pkg]',
         '  Options:',
-        '    -dir    specific a directory to install',
+        '    --dest    specific a directory to install pkg',
+        '   --force    install pkg forcely',
         '  Examples:',
         '    hg install <pkg>',
         '    hg install <author@pkg>',
@@ -25,29 +26,42 @@ exports.help = function () {
 
 exports.process = function (argv) {
     var path = require('path');
+    var fs = require('fs');
     var dest;
+    var cwd = process.cwd();
 
-    if (argv.dir) {
-        dest = path.resolve(process.cwd(), argv.dir);
+    if (argv.dest) {
+        dest = path.resolve(cwd, argv.dest);
+    }
+    else {
+        dest = cwd;
     }
 
     var name = argv._[0];
 
-    var Q = require('q');
-
-    function reject() {
-        throw new Error('fail');
-    }
+    var q = require('../lib/q');
 
     if (!name) {
         this.help();
-        return Q.fcall(reject);
+        return q.rejected();
     }
 
     var pkg = util.resolvePkgName(name);
 
     function doInstall() {
-        return util.install(pkg, dest);
+        var file = require('../lib/file');
+        var pkgDirectory = util.getPkgDirectory(pkg);
+        dest = path.join(dest, pkg);
+        if (argv.force || !fs.existsSync(dest)) {
+            file.copy(
+                pkgDirectory,
+                dest
+            );
+
+            return q.resolved();
+        }
+        console.log('`%s` exists, ignored!', dest);
+        return q.rejected();
     }
 
     if (util.isInstalled(pkg)) {
@@ -59,5 +73,5 @@ exports.process = function (argv) {
     }
 
     console.log('Unable to find package %s', name);
-    return Q.fcall(reject);
+    return q.rejected();
 };

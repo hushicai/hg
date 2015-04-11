@@ -12,9 +12,9 @@ var fs = require('fs');
 
 var util = require('../lib/util');
 
-exports.name = 'generate';
+exports.name = 'import';
 
-exports.description = 'scaffold files in a specificed directory.';
+exports.description = 'import files in a specificed directory.';
 
 exports.help = function () {
     var msg = [
@@ -39,7 +39,7 @@ exports.process = function (argv) {
 
     var dest = argv.dest || process.cwd();
 
-    function doGenerate() {
+    function doImport() {
         var pkgDirectory = util.getPkgDirectory(pkg);
         var hgJsonFile = path.join(pkgDirectory, 'hg.json');
 
@@ -83,11 +83,11 @@ exports.process = function (argv) {
     }
 
     if (util.isInstalled(pkg)) {
-        return doGenerate();
+        return doImport();
     }
 
     if (util.isRemotePkg(name)) {
-        return require('./download').process(argv).then(doGenerate);
+        return require('./download').process(argv).then(doImport);
     }
 
     console.log('Unable to find package `%s`.', name);

@@ -20,7 +20,8 @@ exports.help = function () {
     var msg = [
         '  Usage: hg scaffold [options] [pkg]',
         '  Options:',
-        '    --dest    specific a directory to scaffold'
+        '    --dest         specific a directory to scaffold',
+        '    --noscript     without running scripts'
     ];
 
     return util.outputHelp(msg);
@@ -28,15 +29,14 @@ exports.help = function () {
 
 exports.process = function (argv) {
     var name = argv._[0];
-
     var q = require('../lib/q');
 
     if (!name) {
         this.help();
         return q.rejected();
     }
-    var pkg = util.resolvePkgName(name);
 
+    var pkg = util.resolvePkgName(name);
     var dest = argv.dest || process.cwd();
 
     function doImport() {
@@ -79,7 +79,11 @@ exports.process = function (argv) {
             );
         });
 
-        return util.execCommands(hgInfo.scripts);
+        if (!argv.noscript) {
+            return util.execCommands(hgInfo.scripts);
+        }
+
+        return q.resolved();
     }
 
     if (util.isInstalled(pkg)) {

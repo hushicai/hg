@@ -59,7 +59,7 @@ exports.process = function (argv) {
         }
 
         var file = require('../lib/file');
-        var filesToCopy = file.glob(hgInfo.files);
+        var filesToCopy = file.glob(hgInfo.files, pkgDirectory);
 
         // 开始生成
         filesToCopy.forEach(function (filepath) {

@@ -27,16 +27,8 @@ exports.help = function () {
 exports.process = function (argv) {
     var path = require('path');
     var fs = require('fs');
-    var dest;
-    var cwd = process.cwd();
 
-    if (argv.dest) {
-        dest = path.resolve(cwd, argv.dest);
-    }
-    else {
-        dest = cwd;
-    }
-
+    var dest = argv.dest || process.cwd();
     var name = argv._[0];
 
     var q = require('../lib/q');

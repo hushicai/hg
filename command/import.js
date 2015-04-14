@@ -58,20 +58,12 @@ exports.process = function (argv) {
             return q.rejected();
         }
 
-        var glob = require('glob');
-        var filesToCopy = [];
-        hgInfo.files.forEach(function (filePattern) {
-            filesToCopy = filesToCopy.concat(
-                glob.sync(filePattern, {cwd: pkgDirectory})
-            );
-        });
+        var file = require('../lib/file');
+        var filesToCopy = file.glob(hgInfo.files);
 
-        if (filesToCopy.length === 0) {
-            console.log('Not files specificed!, `%s`.', JSON.stringify(hgInfo.files));
-        }
+        console.log('install pkg `%s` to `%s`', pkg, dest);
 
         // 开始生成
-        var file = require('../lib/file');
         filesToCopy.forEach(function (filepath) {
             file.copy(
                 path.resolve(pkgDirectory, filepath),

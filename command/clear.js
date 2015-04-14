@@ -23,14 +23,10 @@ exports.process = function (argv) {
 
     var q = require('../lib/q');
     var file = require('../lib/file');
-    if (fs.existsSync(rootDirectory)) {
-        fs.readdirSync(rootDirectory).forEach(function (filepath) {
-            file.delete(
-                path.resolve(rootDirectory, filepath)
-            );
-        });
-        return q.resolved();
-    }
-    console.log('`~/.hg` not exists');
-    return q.rejected();
+    fs.readdirSync(rootDirectory).forEach(function (filepath) {
+        file.delete(
+            path.resolve(rootDirectory, filepath)
+        );
+    });
+    return q.resolved();
 };

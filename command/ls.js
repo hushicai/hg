@@ -21,4 +21,6 @@ exports.process = function (argv) {
     require('fs').readdirSync(root).forEach(function (filepath) {
         console.log(filepath);
     });
+
+    return require('../lib/q').resolved();
 };

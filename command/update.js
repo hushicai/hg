@@ -9,27 +9,33 @@ exports.name = 'update';
 
 exports.process = function (argv) {
     var pkg = argv._[0];
-    var q = require('../lib/q');
 
-    if (!pkg) {
-        this.help();
-        return q.rejected();
-    }
-
-    if (util.isInstalled(pkg)) {
+    function doUpdate(p) {
         var command = 'git pull origin master';
-        var pkgDirectory = util.getPkgDirectory(pkg);
+        var pkgDirectory = util.getPkgDirectory(p);
         return util.execCommand(command, pkgDirectory);
     }
 
-    console.log('Pkg `%s` not installed.', pkg);
+    if (!pkg) {
+        return require('../lib/prompt').list({
+            message: 'What package do you want to update?',
+            choices: util.getInstalledPkgs()
+        }).then(doUpdate, exports.help);
+    }
 
+    if (util.isInstalled(pkg)) {
+        return doUpdate(pkg);
+    }
+
+    console.log('`%s` not installed.', pkg);
+
+    var q = require('../lib/q');
     return q.rejected();
 };
 
 exports.help = function () {
     var msg = [
-        '  Usage: hg update <remote-pkg>'
+        '  Usage: hg update [pkg]'
     ];
     return util.outputHelp(msg);
 };

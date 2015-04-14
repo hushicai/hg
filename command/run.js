@@ -43,20 +43,13 @@ exports.process = function (argv) {
     var scripts = hgInfo.scripts;
 
     if (argv.p) {
-        var inquirer = require('inquirer');
-        var deferred = require('Q').defer();
-        inquirer.prompt({
-            type: 'list',
-            name: 'script',
+        return require('../lib/prompt').list({
             message: 'What script do you want to run?',
             choices: scripts
-        }, function (choice) {
-            var command = choice.script;
-            return util.execCommand(command);
+        }).then(function (choice) {
+            return util.execCommand(choice);
         });
-
-        return deferred.promise;
     }
 
-    return require('../lib/util').execCommands(hgInfo.scripts);
+    return util.execCommands(hgInfo.scripts);
 };

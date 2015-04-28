@@ -23,12 +23,17 @@
   "homepage": "https://github.com/hushicai/hg",
   "dependencies": {
     "chalk": "^1.0.0",
+    "connect": "^3.3.5",
     "glob": "^5.0.3",
     "inquirer": "^0.8.2",
     "lodash": "^3.7.0",
     "minimist": "^1.1.1",
+    "node-phpcgi": "^0.3.2",
     "promptly": "^0.2.1",
     "q": "^1.2.0",
-    "rimraf": "^2.3.2"
+    "rimraf": "^2.3.2",
+    "serve-favicon": "^2.2.0",
+    "serve-index": "^1.6.3",
+    "serve-static": "^1.9.2"
   }
 }
